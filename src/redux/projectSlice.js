@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const projectSlice = createSlice({
-    name: 'projects',
-    initialState: {
-        items: []
+  name: "projects",
+  initialState: {
+    items: [],
+  },
+  reducers: {
+    setProjects: (state, action) => {
+      state.items = action.payload.projects;
     },
-    reducers: {
-        setProjects: (state, action) => {
-            state.items = action.payload.projects;
-        }
-    }
+  },
 });
 
 // Action creators are generated for each case reducer function
