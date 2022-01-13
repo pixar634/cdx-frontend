@@ -22,7 +22,7 @@ function Home() {
 
   useEffect(() => {
     fetchProjects();
-  });
+  }, []);
 
   return (
     <div>
@@ -42,7 +42,14 @@ function Home() {
                   <Typography>{data.project_name}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>{data.project_description}</Typography>
+                  <Typography>
+                    Description : {data.project_description}
+                  </Typography>
+                  <Typography>Notes : {data.project_notes}</Typography>
+                  <Typography>
+                    Attachments :{" "}
+                    {data.project_attachment ? data.project_attachment : "None"}
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
             </div>

@@ -1,11 +1,22 @@
-import React from 'react'
-
+import React from "react";
+import TextField from "@mui/material/TextField";
 function Stepone() {
-    return (
-        <div>
-            this is step one 
-        </div>
-    )
+  const test = (e) => {
+    console.log(e.target.value);
+  };
+  return (
+    <div>
+      <TextField id="project-name" label="Name" variant="standard" />
+      <br></br>
+
+      <TextField
+        id="project-description"
+        label="Description"
+        variant="standard"
+        onKeyUp={test}
+      />
+    </div>
+  );
 }
 
-export default Stepone
+export default Stepone;
