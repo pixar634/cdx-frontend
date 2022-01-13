@@ -1,13 +1,33 @@
-import React from 'react';
+import React , {Suspense}from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/css/tailwind.output.css'
+import ThemedSuspense from './components/ThemedSuspense'
+import * as serviceWorker from './serviceWorker'
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { deepPurple } from '@mui/material/colors';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const theme = createTheme({
+  palette: {
+    type: "dark",
+    primary: deepPurple,
+    secondary: {
+      main: '#5e35b1',
+    },
+  },
+});
+
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Suspense fallback={<ThemedSuspense />}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+        <App />
+    </ThemeProvider>
+  </Suspense>,
   document.getElementById('root')
 );
 
