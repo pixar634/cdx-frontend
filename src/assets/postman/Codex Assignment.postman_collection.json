@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "fa660eef-c575-49ee-8064-c71cd626ba40",
+		"name": "Codex Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add New Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "project_name",
+							"value": "SML eagle 2",
+							"type": "text"
+						},
+						{
+							"key": "project_description",
+							"value": "eyes on the prize 2",
+							"type": "text"
+						},
+						{
+							"key": "project_notes",
+							"value": "this is a post test 2",
+							"type": "text"
+						},
+						{
+							"key": "user_access_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/postprojects",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"postprojects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
