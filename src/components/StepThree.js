@@ -1,25 +1,23 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
+import { useFormContext, Controller } from "react-hook-form";
 function StepThree() {
+  const { control } = useFormContext();
   return (
     <div>
-      <div className="pb-1">
-        <TextField
-          id="extra-information"
-          label="Add Notes"
-          variant="standard"
-          className="pb-2"
-        />
-      </div>
-
-      <br></br>
-      {/* <Input
-                    id="extra-information"
-                    label="Add Notes"
-                    type="file"
-                    variant="standard"
-                    
-                  /> */}
+      <Controller
+        control={control}
+        name="projectAdditionalDetails"
+        render={({ field }) => (
+          <TextField
+            id="projectAdditionalDetails"
+            label="Add Notes"
+            variant="standard"
+            margin="normal"
+            {...field}
+          />
+        )}
+      />
     </div>
   );
 }

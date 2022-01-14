@@ -10,12 +10,9 @@ import Typography from "@mui/material/Typography";
 import StepTwo from "../components/StepTwo";
 import StepOne from "../components/StepOne";
 import StepThree from "../components/StepThree";
-import {
-  useForm,
-  FormProvider,
-  useFormContext,
-  Controller,
-} from "react-hook-form";
+import api from "../config/axiosConfig";
+import { useForm, FormProvider } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
 
 function getSteps() {
   return [
@@ -52,16 +49,22 @@ function getStepContent(step = 0) {
 
 export default function StepperForm() {
   const [activeStep, setActiveStep] = React.useState(0);
-
+  const dispatch = useDispatch();
   const steps = getSteps();
   const methods = useForm({
     defaultValues: {
       projectName: "",
       projectDescription: "",
+      userAccess: "",
+      projectAdditionalDetails: "",
     },
   });
 
-  const handleNext = () => {
+  const handleNext = (data) => {
+    console.log(data);
+    if (activeStep == steps.length - 1) {
+      postProjects(data);
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -69,14 +72,16 @@ export default function StepperForm() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-  const handleSubmit = () => {
-    console.log("Submitted form");
-  };
-  const onSubmit = (data) => {
-    console.log(data);
+  const postProjects = async (data) => {
+    const res = await api.post("/postprojects", {
+      project_name: data.projectName,
+      project_description: data.projectDescription,
+      project_notes: data.projectAdditionalDetails,
+      user_access_id: data.userAccess,
+    });
+    console.log(res);
+
+    // dispatch(setProjects({ projects: res.data }));
   };
 
   return (
@@ -92,7 +97,7 @@ export default function StepperForm() {
               <StepContent>
                 <Typography>
                   <FormProvider {...methods}>
-                    <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <form onSubmit={methods.handleSubmit(handleNext)}>
                       {getStepContent(index)}
                       <Button disabled={activeStep === 0} onClick={handleBack}>
                         Back
@@ -100,7 +105,7 @@ export default function StepperForm() {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={handleNext}
+                        // onClick={handleNext}
                         type="submit"
                       >
                         {activeStep === steps.length - 1 ? "Finish" : "Next"}
@@ -115,7 +120,7 @@ export default function StepperForm() {
             </Step>
           ))}
         </Stepper>
-        {activeStep === steps.length && (
+        {/* {activeStep === steps.length && (
           <Paper square elevation={0} style={{ padding: "10px" }}>
             <Typography className="pb-2">
               Great work! Let's move ahead or edit details.
@@ -125,7 +130,7 @@ export default function StepperForm() {
             </Button>
             <Button onClick={handleReset}>Reset</Button>
           </Paper>
-        )}
+        )} */}
       </div>
     </Box>
   );
