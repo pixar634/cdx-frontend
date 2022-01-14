@@ -13,7 +13,7 @@ import StepThree from "../components/StepThree";
 import api from "../config/axiosConfig";
 import { useForm, FormProvider } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-
+import { setProjects } from "../redux/projectSlice";
 function getSteps() {
   return [
     <b style={{ color: "purple" }}>Enter Project Details</b>,
@@ -49,6 +49,7 @@ function getStepContent(step = 0) {
 
 export default function StepperForm() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const allprojects = useSelector((state) => state.project.items);
   const dispatch = useDispatch();
   const steps = getSteps();
   const methods = useForm({
@@ -73,15 +74,26 @@ export default function StepperForm() {
   };
 
   const postProjects = async (data) => {
-    const res = await api.post("/postprojects", {
+    let dataObj = {
       project_name: data.projectName,
       project_description: data.projectDescription,
       project_notes: data.projectAdditionalDetails,
       user_access_id: data.userAccess,
-    });
+    };
+    const res = await api.post("/postprojects", dataObj);
     console.log(res);
+    // location.reload();
 
-    // dispatch(setProjects({ projects: res.data }));
+    fetchProjects();
+    setActiveStep(0);
+    methods.reset();
+  };
+  const fetchProjects = async () => {
+    const res = await api.get("/projects");
+
+    console.log(res.data);
+
+    dispatch(setProjects({ projects: res.data }));
   };
 
   return (
