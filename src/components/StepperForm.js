@@ -10,6 +10,12 @@ import Typography from "@mui/material/Typography";
 import StepTwo from "../components/StepTwo";
 import StepOne from "../components/StepOne";
 import StepThree from "../components/StepThree";
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  Controller,
+} from "react-hook-form";
 
 function getSteps() {
   return [
@@ -48,6 +54,12 @@ export default function StepperForm() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const steps = getSteps();
+  const methods = useForm({
+    defaultValues: {
+      projectName: "",
+      projectDescription: "",
+    },
+  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -63,6 +75,9 @@ export default function StepperForm() {
   const handleSubmit = () => {
     console.log("Submitted form");
   };
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -75,20 +90,26 @@ export default function StepperForm() {
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-                <Typography>{getStepContent(index)}</Typography>
+                <Typography>
+                  <FormProvider {...methods}>
+                    <form onSubmit={methods.handleSubmit(onSubmit)}>
+                      {getStepContent(index)}
+                      <Button disabled={activeStep === 0} onClick={handleBack}>
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
+                        type="submit"
+                      >
+                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </form>
+                  </FormProvider>
+                </Typography>
                 <div>
-                  <div>
-                    <Button disabled={activeStep === 0} onClick={handleBack}>
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                    >
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                    </Button>
-                  </div>
+                  <div></div>
                 </div>
               </StepContent>
             </Step>

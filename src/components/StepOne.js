@@ -1,19 +1,42 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  Controller,
+} from "react-hook-form";
 function Stepone() {
-  const test = (e) => {
-    console.log(e.target.value);
-  };
+  const { control } = useFormContext();
   return (
     <div>
-      <TextField id="project-name" label="Name" variant="standard" />
-      <br></br>
+      <Controller
+        control={control}
+        name="projectName"
+        render={({ field }) => (
+          <TextField
+            id="projectName"
+            label="projectName"
+            variant="outlined"
+            margin="normal"
+            {...field}
+          />
+        )}
+      />
 
-      <TextField
-        id="project-description"
-        label="Description"
-        variant="standard"
-        onKeyUp={test}
+      <br></br>
+      <Controller
+        control={control}
+        name="projectDescription"
+        render={({ field }) => (
+          <TextField
+            id="projectDescription"
+            label="projectDescription"
+            variant="outlined"
+            margin="normal"
+            {...field}
+          />
+        )}
       />
     </div>
   );
