@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import api from "../config/axiosConfig";
 import { useFormContext, Controller } from "react-hook-form";
 function StepTwo() {
   const [age, setAge] = React.useState("");
@@ -10,6 +11,19 @@ function StepTwo() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+  const getuserAccessCodes = async () => {
+    const res = await api.get("/users");
+    let userIDList = res.data;
+    setAge(userIDList);
+    // let roots = userIDList.map((alldata) => {
+    //   return alldata.id;
+    // });
+    console.log("all id", userIDList);
+  };
+  useEffect(() => {
+    getuserAccessCodes();
+  }, []);
+
   return (
     <div>
       <Controller
@@ -21,17 +35,19 @@ function StepTwo() {
             <Select
               labelId="userAccess"
               id="userAccess"
-              value={age}
+              value={age.id}
               onChange={handleChange}
               label="Age"
               {...field}
+              variant="outlined"
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {age &&
+                age.map((allUser) => (
+                  <MenuItem value={allUser.id}>{allUser.name}</MenuItem>
+                ))}
             </Select>
           </FormControl>
         )}

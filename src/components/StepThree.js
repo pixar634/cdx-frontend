@@ -12,7 +12,7 @@ function StepThree() {
           <TextField
             id="projectAdditionalDetails"
             label="Add Notes"
-            variant="standard"
+            variant="outlined"
             margin="normal"
             {...field}
           />
