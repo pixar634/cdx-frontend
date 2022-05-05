@@ -1,15 +1,14 @@
 {
-  "name": "CodxAssignmentSoumavaPaul",
+  "name": "Codx-Infinity",
   "version": "0.1.0",
   "Description": "",
-  "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@heroicons/react": "^1.0.5",
     "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.8",
+    "@mui/material": "^5.6.4",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -27,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pixar634/cdx.git"
+    "url": ""
   },
   "author": "Soumava Paul",
   "scripts": {
